@@ -75,7 +75,7 @@ describe('Node Server Request Listener Function', function() {
     expect(res._ended).to.equal(true);
   });
 
-  it('Should respond with messages that were previously posted', function() {
+  it('SERVER SPEC: Should respond with messages that were previously posted', function() {
     var stubMsg = {
       username: 'Jono',
       message: 'Do my bidding!'
