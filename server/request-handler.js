@@ -11,7 +11,7 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-//var fs = require('fs');
+var fs = require('fs');
 
 var result = {results: []};
 var defaultCorsHeaders = {
@@ -20,6 +20,16 @@ var defaultCorsHeaders = {
   'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': 10 // Seconds.
 };
+
+// Init of the result array using messages recorded inside txt file
+fs.readFile('data.txt', function(err, data) {
+  var str = '';
+  str += data;  
+  var arr = str.split('\n');
+  for (var i = 0; i < arr.length - 1; i++) {
+    result.results.push(JSON.parse(arr[i]));
+  }
+});
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -54,12 +64,20 @@ var requestHandler = function(request, response) {
     statusCode = 404;
   } else if (request.method === 'GET') {
     statusCode = 200;
-    //result.results.push(request.json);
   } else if (request.method === 'POST') {
     statusCode = 201;
     var body = '';
     request.on('data', function(data) {
       body += data;
+      
+      fs.appendFile('data.txt', body + '\n', function (err) {
+        if (err) {
+          throw err;
+        }
+        console.log('Saved!');
+      });
+      
+      
       message = JSON.parse(body);
       // messArr = body.split('&').map(el => el.split('='));
       // for (var i = 0; i < messArr.length; i++) {
