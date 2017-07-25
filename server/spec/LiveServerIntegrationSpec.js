@@ -36,7 +36,8 @@ describe('server', function() {
   it('should accept POST requests to /classes/messages', function(done) {
     var requestParams = {method: 'POST',
       uri: 'http://127.0.0.1:3000/classes/messages',
-      json: {
+      json: 
+      {
         username: 'Jono',
         message: 'Do my bidding!'}
     };
@@ -73,5 +74,45 @@ describe('server', function() {
     });
   });
 
+  it('should respond to OPTIONS requests for /classes/messages with a 200 status code', function(done) {
+    var requestParams = {method: 'OPTIONS',
+      uri: 'http://127.0.0.1:3000/classes/messages'
+    };
+    request(requestParams, function(error, response, body) {
+      expect(response.statusCode).to.equal(200);
+      done();
+    });
+  });
 
+  it('should delete the last posted message', function(done) {
+    var requestParams = {method: 'POST',
+      uri: 'http://127.0.0.1:3000/classes/messages',
+      json: {
+        username: 'Gui',
+        message: 'Don\'t delete me!'}
+    };
+
+    // Post
+    request(requestParams, function(error, response, body) {
+       // Get
+      request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+        var messages = JSON.parse(body).results;
+        expect(messages[messages.length - 1].username).to.equal('Gui');
+        expect(messages[messages.length - 1].message).to.equal('Don\'t delete me!');
+        // Delete
+        var requestParams = {method: 'DELETE',
+          uri: 'http://127.0.0.1:3000/classes/messages'
+        };
+        request(requestParams, function(error, response, body) {
+          // Get
+          request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+            var messages = JSON.parse(body).results;
+            expect(messages[messages.length - 1].username).to.not.equal('Gui');
+            expect(messages[messages.length - 1].message).to.not.equal('Don\'t delete me!');
+            done();
+          });
+        });
+      });
+    });
+  });
 });

@@ -11,6 +11,7 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+//var fs = require('fs');
 
 var result = {results: []};
 var defaultCorsHeaders = {
@@ -59,12 +60,13 @@ var requestHandler = function(request, response) {
     var body = '';
     request.on('data', function(data) {
       body += data;
-      messArr = body.split('&').map(el => el.split('='));
-      for (var i = 0; i < messArr.length; i++) {
-        message[messArr[i][0]] = messArr[i][1];
-      }
-      console.log(message);  
-
+      message = JSON.parse(body);
+      // messArr = body.split('&').map(el => el.split('='));
+      // for (var i = 0; i < messArr.length; i++) {
+      //   message[messArr[i][0]] = messArr[i][1];
+      // }
+      //console.log(message);  
+      // "{"username":"Gui","text":"ad","roomname":"lobby"}"
 
       // pick a random number objectId
       randomNbr = Math.round(Math.random() * 10000);
@@ -73,6 +75,11 @@ var requestHandler = function(request, response) {
       result.results.push(message);
     });
   } else if (request.method === 'OPTIONS') {
+    statusCode = 200;
+  } else if (request.method === 'DELETE') {
+    // this function delete ONLY the last message
+    result.results.pop();
+
     statusCode = 200;
   } else {
     statusCode = 404;

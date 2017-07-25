@@ -116,4 +116,16 @@ describe('Node Server Request Listener Function', function() {
       });
   });
 
+  it('Should answer OPTIONS requests for /classes/messages with a 200 status code', function() {
+    // This is a fake server request. Normally, the server would provide this,
+    // but we want to test our function's behavior totally independent of the server code
+    var req = new stubs.request('/classes/messages', 'OPTIONS');
+    var res = new stubs.response();
+
+    handler.requestHandler(req, res);
+
+    expect(res._responseCode).to.equal(200);
+    expect(res._ended).to.equal(true);
+  });
+
 });
