@@ -24,6 +24,12 @@ fs.readFile('data.txt', function(err, data) {
 });
 
 
+// Make your Node server serve up the static html and js files for the chat client page at http://127.0.0.1:3000/. 
+// You will need to use the fs module to accomplish this. 
+// If you are successful you will be able to run the client by visiting http://127.0.0.1:3000/ in your browser 
+// instead of opening the file.
+app.use(express.static('../client'));
+
 // This responds a POST request for the homepage
 app.post('/classes/messages', function (req, res) {
   console.log('Got a POST request for /classes/messages');

@@ -13,3 +13,9 @@
 {"username":"Jono","message":"Do my bidding!"}
 {"username":"Gui","message":"Don't delete me!"}
 {"username":"greg","text":"asdf","roomname":"lobby"}
+{"username":"greg","text":"test","roomname":"lobby"}
+{"username":"greg","text":"asg","roomname":"lobby"}
+{"username":"greg","text":"congrats gui!","roomname":"Express"}
+{"username":"greg","text":"Hi how are you","roomname":"Express"}
+{"username":"greg","text":"try","roomname":"Express"}
+{"username":"greg","text":"sdfghj","roomname":"Express"}
