@@ -21,6 +21,7 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
+
 // Init of the result array using messages recorded inside txt file
 fs.readFile('data.txt', function(err, data) {
   var str = '';
@@ -30,6 +31,8 @@ fs.readFile('data.txt', function(err, data) {
     result.results.push(JSON.parse(arr[i]));
   }
 });
+
+
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.

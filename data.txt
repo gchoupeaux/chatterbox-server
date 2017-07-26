@@ -1,3 +1,6 @@
 {"username":"Gui","text":"gui","roomname":"new room"}
 {"username":"Gui","text":"test","roomname":"new room"}
 {"username":"Gui","text":"manual","roomname":"new room"}
+{"username":"greg","text":"start here","roomname":"Lobby"}
+{"username":"Jono","message":"Do my bidding!"}
+{"username":"Jono","message":"Do my bidding!"}
